@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% block head %} {% endblock head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title>Ma page</title> -->
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <div class="container">
+            <a href="#" class="navbar-brand">Twig en PHP</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+    {% block content %}{% endblock %}
+    
+
+    </div>
+   
+</body>
+</html>

@@ -1,10 +1,14 @@
 <?php
 
+use Michelf\MarkdownExtra;
 use Twig\Environment;
 use Twig\Extra\Markdown\MichelfMarkdown;
 use Twig\Loader\FilesystemLoader;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 require "vendor/autoload.php";
+require "Monextension.php";
 
 
 // Routing
@@ -16,10 +20,10 @@ if (isset($_GET["p"])) {
 
 //recupère les derniers tutoriels
 function tutorials  () {
-    $pdo = new PDO("mysql:host=localhost;dbname=grafikart", "root", "root");
+    $pdo = new PDO("mysql:host=localhost;dbname=world;charset=utf8mb4", "root", "Murielle12345", );
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-    $tutorials = $pdo->query("SELECT * FROM tutoriels ORDER BY id DESC LIMIT 10");
+    $tutorials = $pdo->query("SELECT * FROM test ORDER BY id DESC LIMIT 10");
     return $tutorials;
 }
 
@@ -31,9 +35,19 @@ $twig = new Environment($loader, [
     "cache" => false
 ]); 
 
+// $twig->addFunction(new TwigFunction("markdown", function($value){
+//     return MarkdownExtra::defaultTransform($value);
+// }, ["is_safe" => ["html"]]) );
+
+// $twig->addFilter(new TwigFilter("markdown", function($value) {
+//     return MarkdownExtra::defaultTransform($value);
+// } , ["is_safe" => ["html"]]));
+
+$twig->addExtension(new Monextension());
+
 switch ($page) {
     case "home":
-        echo $twig->render("home.twig");
+        echo $twig->render("home.twig", ["tutorials" => tutorials()]);
         break;
     case "contact":
         echo $twig->render("contact.twig");

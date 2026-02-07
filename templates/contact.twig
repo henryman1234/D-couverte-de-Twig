@@ -4,14 +4,32 @@
     <title>La page contact</title>
 {% endblock %}
 
+{% import 'form.twig' as form %}
+
 
 {% block content %}
 
-
-
 <h1>Me contacter</h1>
 <p>ceci est la page de contact</p>
-<span>je suis Henry , Developpeur</span>
+{{ dump(form) }}
+
+<form  method="GET" action="?p=contact">
+    
+    <div class="row">
+
+        {{form.input("name", "Votre nom", name, {class: "col-sm-6"})}}
+
+        {{form.input("email", "Votre Email", email,  {class: "col-sm-6"})}}
+    </div>
+
+    {{form.textarea("message", "Votre Message")}}
+
+    <div class="form-group mt-3">
+        <button class="btn btn-primary">Envoyer</button>
+    </div>
+
+</form>
+
 
 
 

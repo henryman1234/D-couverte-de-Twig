@@ -1,4 +1,4 @@
-{% extends 'layout.twig' %}
+{% extends 'with-sidebar.twig' %}
 
 {% block head %}
     <title>La page d'acceuil</title>
@@ -6,37 +6,45 @@
 
 
 
-{% block content %}
+{% block sidebar %}
 
-<h2>Les derniers tutoriels</h2>
+<h4>les derniers tutoriels</h4>
+{{ parent() }}
+
+
+{% endblock %}
+
+
+
+{% block main %}
+
+
 
 <div class="row">
 
     {% for tutorial in tutorials %}
 
-        <div class="col-xs col-sm-3 ">               
+        <div class="col-xs col-sm-4">               
 
             <div class= "card">
 
                 <img src="../img/test.jpg" alt="Image test" class="card-img-top" width="100%">
 
                 <div class="card-body">
-                    <h4 class="card-title">{{tutorial.name}}</h4>
+                    <h4 class="card-title"> {{"Tutoriel : " ~ tutorial.name}}  </h4>
                     <p class="card-text">{{tutorial.description | markdown }}</p>
                     <a href="#" class="btn btn-primary">voir plus</a>
                 </div>
 
             </div>
-
         
         </div>
         
     {% endfor %}
 
-
 </div>
 
-
-
-
 {% endblock %}
+
+
+

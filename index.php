@@ -2,10 +2,13 @@
 
 use Michelf\MarkdownExtra;
 use Twig\Environment;
+use Twig\Extension\DebugExtension;
 use Twig\Extra\Markdown\MichelfMarkdown;
+use Twig\Extra\String\StringExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
+use Twig\TwigTest;
 
 require "vendor/autoload.php";
 require "Monextension.php";
@@ -32,7 +35,8 @@ function tutorials  () {
 $loader = new FilesystemLoader(__DIR__."/templates");
 $twig = new Environment($loader, [
     // "cache" => __DIR__."/tmp"
-    "cache" => false
+    "cache" => false,
+    "debug" => true
 ]); 
 
 // $twig->addFunction(new TwigFunction("markdown", function($value){
@@ -44,13 +48,16 @@ $twig = new Environment($loader, [
 // } , ["is_safe" => ["html"]]));
 
 $twig->addExtension(new Monextension());
+$twig->addExtension(new StringExtension());
+$twig->addGlobal("current_page", $page);
+$twig->addExtension(new DebugExtension());
 
 switch ($page) {
     case "home":
         echo $twig->render("home.twig", ["tutorials" => tutorials()]);
         break;
     case "contact":
-        echo $twig->render("contact.twig");
+        echo $twig->render("contact.twig", ["name" => "Henry Euloge", "email" => "henrynomo68@gmail.com"]);
         break;
     default:
         header("HTTP/1.0 404 Not Found");

@@ -1,0 +1,30 @@
+{% extends 'layout.twig' %}
+
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-md-10">
+        {% block main %}
+
+        {% endblock %}
+    </div>
+
+    <div class="col-md-2">
+
+        {% block sidebar %}
+
+            <h2>Ma sidebar</h4>
+            <span> ceci est la sidebar</span>
+        
+        
+        {% endblock %}
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
